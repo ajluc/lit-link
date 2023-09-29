@@ -6,11 +6,6 @@ interface TempCardItemProps {
 }
 
 const TempCardItem: React.FC<TempCardItemProps> = ({ tempCard }) => {
-  // const navigate = useNavigate()
-  // const viewCardDetails = (id) => {
-    
-  // }
-
   return (
     // Add router link to IonCard later to open it up and view card
     <IonCard routerLink={`/club/${tempCard.id}`} routerDirection='forward'>
