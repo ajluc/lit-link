@@ -26,22 +26,13 @@ const Tab1: React.FC = () => {
         <IonGrid>
           <IonRow>
             {cards.map(c => (
-              <IonCol size="6" size-md="4" size-lg="2">
-                <TempCardItem key={c.id} tempCard={c}/>
+              <IonCol size="6" size-md="4" size-lg="2"  key={c.id}>
+                <TempCardItem tempCard={c}/>
               </IonCol>
             ))}
           </IonRow>
         </IonGrid>
         <h3>My Clubs</h3>
-        <IonGrid>
-          <IonRow>
-            {cards.map(c => (
-              <IonCol size="6" size-md="4" size-lg="2">
-                <TempCardItem key={c.id} tempCard={c}/>
-              </IonCol>
-            ))}
-          </IonRow>
-        </IonGrid>
         <IonFab vertical='bottom' horizontal='center' slot='fixed'>
           <IonFabButton onClick={() => console.log("click")}>
             <IonIcon icon={add}></IonIcon>

@@ -33,6 +33,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import ClubDetails from './pages/ClubDetails';
 
 setupIonicReact();
 
@@ -41,29 +42,33 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/tab1">
+          <Route exact path="/club">
             <Tab1 />
           </Route>
-          <Route exact path="/tab2">
+          <Route exact path="/calendar">
             <Tab2 />
           </Route>
-          <Route path="/tab3">
+          <Route exact path="/profile">
             <Tab3 />
           </Route>
-          <Route exact path="/">
-            <Redirect to="/tab1" />
+          <Route path="/club/:id">
+            <ClubDetails />
+          </Route>
+          <Route>
+            <Redirect to="/club" />
           </Route>
         </IonRouterOutlet>
+
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton tab="club" href="/club">
             <IonIcon aria-hidden="true" icon={book} />
             <IonLabel>Clubs</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+          <IonTabButton tab="calendar" href="/calendar">
             <IonIcon aria-hidden="true" icon={calendar} />
             <IonLabel>Calendar</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
+          <IonTabButton tab="profile" href="/profile">
             <IonIcon aria-hidden="true" icon={person} />
             <IonLabel>Profile</IonLabel>
           </IonTabButton>
