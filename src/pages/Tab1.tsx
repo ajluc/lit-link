@@ -34,7 +34,7 @@ const Tab1: React.FC = () => {
         </IonGrid>
         <h3>My Clubs</h3>
         <IonFab vertical='bottom' horizontal='center' slot='fixed'>
-          <IonFabButton onClick={() => console.log("click")}>
+          <IonFabButton routerLink='/club/new' routerDirection='forward'>
             <IonIcon icon={add}></IonIcon>
           </IonFabButton>
         </IonFab>

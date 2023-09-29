@@ -34,6 +34,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import ClubDetails from './pages/ClubDetails';
+import NewClub from './pages/NewClub';
 
 setupIonicReact();
 
@@ -53,6 +54,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/club/:id">
             <ClubDetails />
+          </Route>
+          <Route path="/club/new">
+            <NewClub />
           </Route>
           <Route>
             <Redirect to="/club" />
