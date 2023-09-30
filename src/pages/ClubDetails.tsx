@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonGrid, IonRow, IonCol, IonSpinner, IonImg, IonIcon, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonAvatar } from "@ionic/react"
+import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonGrid, IonRow, IonCol, IonSpinner, IonImg, IonIcon, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonAvatar, IonButton, IonFab, IonFabButton } from "@ionic/react"
 import { useParams } from "react-router"
 // One-off call to Google API for now: need to think about prop flow/architecture
 import axios from 'axios';
@@ -6,20 +6,19 @@ import { useState, useEffect } from "react";
 import tempBooks from "../data/books";
 import { ellipsisHorizontal } from 'ionicons/icons';
 
-// Mock-up club info: use this to inform back-end structure/what data I want in each
-const club = {
-  id: 1,
-  clubName: 'Summer Reads',
-
-}
-
-
-
 const ClubDetails = () => {
+  const { id } = useParams<{ id?: string}>()
+  // Mock-up club info: use this to inform back-end structure/what data I want in each
+  const club = {
+    id: id,
+    clubName: 'Summer Reads',
+    bookList: tempBooks,
+    members: []
+  }
 
   const [book, setBook] = useState<object>({})
   useEffect(() => {
-    async function fetchUsers() {
+    async function fetchBooks() {
       try {
         const response = await axios.get('https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?');
         const book = response.data;
@@ -28,10 +27,8 @@ const ClubDetails = () => {
         console.error('Error fetching book:', error.id);
       }
     }
-    fetchUsers();
+    fetchBooks();
   }, [])
-
-  const { id } = useParams<{ id?: string}>()
 
 return (
     <IonPage>
@@ -44,6 +41,11 @@ return (
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
+      <IonButton routerLink={`/club/${club.id}/booklist`}>
+                  <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
+                </IonButton>
+        <h3>{id}</h3>
+        <h3>{club.id}</h3>
         <h3>Next Meeting</h3>
         {!book.id ? (<IonSpinner name="dots"></IonSpinner>): (
         <IonGrid fixed={true}>
@@ -65,6 +67,8 @@ return (
           </IonRow>
         </IonGrid>
         )}
+        <h3>Future Dates</h3>
+        {/* Convert to component that accepts an array as prop - how to deal with diff data structures to access image src? */}
         <h3>Book List</h3>
         <IonGrid>
           <IonRow>
@@ -76,11 +80,11 @@ return (
                 </IonAvatar>
               </IonCol>
             ) )}
-              <IonCol size="3">
-                <IonAvatar>
-                <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
-                </IonAvatar>
-              </IonCol>
+              {/* <IonCol size="3">
+                <IonButton routerLink={`/club/${club.id}/booklist`} routerDirection="forward">
+                  <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
+                </IonButton>
+              </IonCol> */}
           </IonRow>
         </IonGrid>
         <h3>Members</h3>

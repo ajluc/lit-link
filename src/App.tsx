@@ -1,4 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import {
   IonApp,
   IonIcon,
@@ -35,6 +35,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import ClubDetails from './pages/ClubDetails';
 import NewClub from './pages/NewClub';
+import BookList from './pages/BookList';
 
 setupIonicReact();
 
@@ -43,23 +44,28 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/club">
-            <Tab1 />
-          </Route>
-          <Route exact path="/calendar">
-            <Tab2 />
-          </Route>
-          <Route exact path="/profile">
-            <Tab3 />
-          </Route>
-          <Route path="/club/:id">
-            <ClubDetails />
-          </Route>
-          <Route path="/club/new">
-            <NewClub />
-          </Route>
-          <Route>
-            <Redirect to="/club" />
+          <Switch>
+            <Route exact path="/club">
+              <Tab1 />
+            </Route>
+            <Route exact path="/calendar">
+              <Tab2 />
+            </Route>
+            <Route exact path="/profile">
+              <Tab3 />
+            </Route>
+            <Route path="/club/:id">
+              <ClubDetails />
+            </Route>
+            <Route path="/club/new">
+              <NewClub />
+            </Route>
+            <Route>
+              <Redirect to="/club" />
+            </Route>
+          </Switch>
+          <Route path="/club/:id/booklist">
+            <BookList />
           </Route>
         </IonRouterOutlet>
 
