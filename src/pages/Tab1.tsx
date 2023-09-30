@@ -22,7 +22,7 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
-        <h3>Upcoming Meetings</h3>
+        <h3>My Clubs</h3>
         <IonGrid>
           <IonRow>
             {cards.map(c => (
@@ -32,7 +32,7 @@ const Tab1: React.FC = () => {
             ))}
           </IonRow>
         </IonGrid>
-        <h3>My Clubs</h3>
+        <h3>Upcoming Meetings</h3>
         <IonFab vertical='bottom' horizontal='center' slot='fixed'>
           <IonFabButton routerLink='/club/new' routerDirection='forward'>
             <IonIcon icon={add}></IonIcon>
