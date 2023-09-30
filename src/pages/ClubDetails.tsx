@@ -44,8 +44,6 @@ return (
       <IonButton routerLink={`/club/${club.id}/booklist`}>
                   <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
                 </IonButton>
-        <h3>{id}</h3>
-        <h3>{club.id}</h3>
         <h3>Next Meeting</h3>
         {!book.id ? (<IonSpinner name="dots"></IonSpinner>): (
         <IonGrid fixed={true}>
