@@ -7,10 +7,10 @@ import BookSearch from "../components/BookSearch";
 
 const BookList = () => {
   const { id } = useParams<{ id?: string }>()
-  useEffect(() => {
-    console.log('We are in')
-    console.log(id)
-  },[])
+  // useEffect(() => {
+  //   console.log('We are in')
+  //   console.log(id)
+  // },[])
 
   return (
     <IonPage>
@@ -24,8 +24,7 @@ const BookList = () => {
       <IonContent fullscreen class='ion-padding'>
       {/* {!id ? (<IonSpinner name="dots"></IonSpinner>): ( */}
         <div>
-          <p>Book List</p>
-          <p>{id}</p>
+          <p>Reading List</p>
           <IonGrid>
             <IonRow>
               {tempBooks.map(b =>(
