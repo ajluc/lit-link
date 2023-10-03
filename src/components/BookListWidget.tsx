@@ -9,7 +9,7 @@ const BookListWidget = ({books, clubId}) => {
             {books.slice(0,3).map(b =>(
               <IonCol size="3" key={b.id}>
                 {/* <IonAvatar> */}
-                  <IonImg alt="Cover" src={b.volumeInfo.imageLinks.medium}></IonImg>
+                  <IonImg alt="Cover" src={b.volumeInfo.imageLinks.thumbnail}></IonImg>
                 {/* </IonAvatar> */}
               </IonCol>
             ) )}
