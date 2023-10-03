@@ -6,7 +6,8 @@ import {
   IonHeader,
   IonContent,
   IonToolbar,
-  IonTitle
+  IonTitle,
+  IonImg
 } from '@ionic/react';
 
 const BookDetailsModal = ({book}) => {
@@ -19,11 +20,16 @@ const BookDetailsModal = ({book}) => {
               <IonButtons slot="start">
                 <IonButton onClick={() => modal.current?.dismiss()}>Done</IonButton>
               </IonButtons>
-              <IonTitle>{book.volumeInfo.title}</IonTitle>
+              <IonTitle>Book Details</IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
-            <p>{book.volumeInfo.title}</p>
+            <IonImg alt="Cover" src={book.volumeInfo.imageLinks.medium}></IonImg>
+            {!book.volumeInfo.authors[1] ? (<p>{book.volumeInfo.authors[0]}</p>) : (<p>{book.volumeInfo.authors[0]} et al</p>)}
+            <h3>{book.volumeInfo.title}</h3>
+            <h3>{book.volumeInfo.subtitle}</h3>
+            <p>Published {book.volumeInfo.publishedDate.split("-")[0]}</p>
+            <div dangerouslySetInnerHTML={{ __html: book.volumeInfo.description}} />
           </IonContent>
         </IonModal>
   );
