@@ -1,4 +1,5 @@
 import { IonGrid, IonRow, IonCol, IonCard, IonImg, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react"
+import BookDetailsModal from "./BookDetailsModal"
 
 const NextMeetingWidget = ({book}) => {
     return (
@@ -6,7 +7,8 @@ const NextMeetingWidget = ({book}) => {
           <IonRow>
             <IonCol size="6.5">
               <IonCard>
-                <IonImg alt="Cover" src={book.volumeInfo.imageLinks.medium}></IonImg>
+                <IonImg id={`open-modal-${book.id}`} alt="Cover" src={book.volumeInfo.imageLinks.medium}></IonImg>
+                <BookDetailsModal book={book} />
               </IonCard>
             </IonCol>
             <IonCol>
