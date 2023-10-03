@@ -1,5 +1,5 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonSpinner, IonGrid, IonRow, IonCol, IonImg } from "@ionic/react"
-import { useEffect } from "react"
+import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonSpinner, IonGrid, IonRow, IonCol, IonImg, IonSearchbar, IonList, IonItem } from "@ionic/react"
+import { useState, useEffect } from "react"
 import { useParams } from "react-router"
 import tempBooks from "../data/books";
 import BookDetailsModal from "../components/BookDetailsModal";
@@ -10,6 +10,16 @@ const BookList = () => {
     console.log('We are in')
     console.log(id)
   },[])
+
+  let [results, setResults] = useState([...tempBooks])
+
+  const handleInput = (ev: Event) => {
+    let query = '';
+    const target = ev.target as HTMLIonSearchbarElement;
+    if (target) query = target.value!.toLowerCase();
+
+    setResults(tempBooks.filter((d) => d.volumeInfo.title.toLowerCase().indexOf(query) > -1));
+  };
 
   return (
     <IonPage>
@@ -37,8 +47,14 @@ const BookList = () => {
               ) )}
             </IonRow>
           </IonGrid>
+          <p>Add Book</p>
+          <IonSearchbar debounce={1000} onIonInput={(ev) => handleInput(ev)}></IonSearchbar>
+          <IonList>
+            {results.map((result) => (
+              <IonItem key={result.id}>{result.volumeInfo.title}</IonItem>
+            ))}
+          </IonList>
         </div>
-
        {/* )} */}
       </IonContent>
     </IonPage>
