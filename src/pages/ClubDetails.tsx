@@ -1,10 +1,11 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonGrid, IonRow, IonCol, IonSpinner, IonImg, IonIcon, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonAvatar, IonButton, IonFab, IonFabButton } from "@ionic/react"
+import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonGrid, IonRow, IonCol, IonSpinner, IonImg, IonIcon, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonAvatar, IonButton, IonFab, IonFabButton, IonNavLink } from "@ionic/react"
 import { useParams } from "react-router"
 // One-off call to Google API for now: need to think about prop flow/architecture
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import tempBooks from "../data/books";
 import { ellipsisHorizontal } from 'ionicons/icons';
+import BookList from "./BookList";
 
 const ClubDetails = () => {
   const { id } = useParams<{ id?: string}>()
@@ -18,7 +19,7 @@ const ClubDetails = () => {
 
   const [book, setBook] = useState<object>({})
   useEffect(() => {
-    async function fetchBooks() {
+    async function fetchBook() {
       try {
         const response = await axios.get('https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?');
         const book = response.data;
@@ -27,7 +28,7 @@ const ClubDetails = () => {
         console.error('Error fetching book:', error.id);
       }
     }
-    fetchBooks();
+    fetchBook();
   }, [])
 
 return (
@@ -41,9 +42,6 @@ return (
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
-      <IonButton routerLink={`/club/${club.id}/booklist`}>
-                  <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
-                </IonButton>
         <h3>Next Meeting</h3>
         {!book.id ? (<IonSpinner name="dots"></IonSpinner>): (
         <IonGrid fixed={true}>
@@ -73,16 +71,16 @@ return (
             {/* Later with web formatting, slice size should be responsive to screen size */}
             {tempBooks.slice(0,3).map(b =>(
               <IonCol size="3" key={b.id}>
-                <IonAvatar>
+                {/* <IonAvatar> */}
                   <IonImg alt="Cover" src={b.volumeInfo.imageLinks.medium}></IonImg>
-                </IonAvatar>
+                {/* </IonAvatar> */}
               </IonCol>
             ) )}
-              {/* <IonCol size="3">
-                <IonButton routerLink={`/club/${club.id}/booklist`} routerDirection="forward">
+              <IonCol size="3">
+                <IonButton expand="block" routerLink={`/club/${club.id}/booklist`}>
                   <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
                 </IonButton>
-              </IonCol> */}
+              </IonCol>
           </IonRow>
         </IonGrid>
         <h3>Members</h3>

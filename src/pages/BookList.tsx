@@ -1,6 +1,7 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent } from "@ionic/react"
+import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonSpinner, IonGrid, IonRow, IonCol, IonImg } from "@ionic/react"
 import { useEffect } from "react"
 import { useParams } from "react-router"
+import tempBooks from "../data/books";
 
 const BookList = () => {
   const { id } = useParams<{ id?: string }>()
@@ -8,6 +9,7 @@ const BookList = () => {
     console.log('We are in')
     console.log(id)
   },[])
+
   return (
     <IonPage>
       <IonHeader>
@@ -18,8 +20,24 @@ const BookList = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
-        <p>Book List</p>
-        <p>{id}</p>
+      {/* {!id ? (<IonSpinner name="dots"></IonSpinner>): ( */}
+        <div>
+          <p>Book List</p>
+          <p>{id}</p>
+          <IonGrid>
+            <IonRow>
+              {tempBooks.map(b =>(
+                <IonCol size="3" key={b.id}>
+                  {/* <IonAvatar> */}
+                    <IonImg alt="Cover" src={b.volumeInfo.imageLinks.medium}></IonImg>
+                  {/* </IonAvatar> */}
+                </IonCol>
+              ) )}
+            </IonRow>
+          </IonGrid>
+        </div>
+
+       {/* )} */}
       </IonContent>
     </IonPage>
   )
