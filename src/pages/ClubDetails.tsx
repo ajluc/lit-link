@@ -4,8 +4,10 @@ import { useParams } from "react-router"
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import tempBooks from "../data/books";
-import { ellipsisHorizontal } from 'ionicons/icons';
 import BookList from "./BookList";
+import NextMeetingWidget from "../components/NextMeetingWidget";
+import BookListWidget from "../components/BookListWidget";
+import MemberListWidget from "../components/MemberListWidget";
 
 const ClubDetails = () => {
   const { id } = useParams<{ id?: string}>()
@@ -44,62 +46,14 @@ return (
       <IonContent fullscreen class='ion-padding'>
         <h3>Next Meeting</h3>
         {!book.id ? (<IonSpinner name="dots"></IonSpinner>): (
-        <IonGrid fixed={true}>
-          <IonRow>
-            <IonCol size="6.5">
-              <IonCard>
-                <IonImg alt="Cover" src={book.volumeInfo.imageLinks.medium}></IonImg>
-              </IonCard>
-            </IonCol>
-            <IonCol>
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>Oct 1</IonCardTitle>
-                  <IonCardSubtitle>9pm</IonCardSubtitle>
-                </IonCardHeader>
-                <IonCardContent>Amaya's House, 50% progress</IonCardContent>
-              </IonCard>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+          <NextMeetingWidget book={book}/>
         )}
         <h3>Future Dates</h3>
         {/* Convert to component that accepts an array as prop - how to deal with diff data structures to access image src? */}
         <h3>Book List</h3>
-        <IonGrid>
-          <IonRow>
-            {/* Later with web formatting, slice size should be responsive to screen size */}
-            {tempBooks.slice(0,3).map(b =>(
-              <IonCol size="3" key={b.id}>
-                {/* <IonAvatar> */}
-                  <IonImg alt="Cover" src={b.volumeInfo.imageLinks.medium}></IonImg>
-                {/* </IonAvatar> */}
-              </IonCol>
-            ) )}
-              <IonCol size="3">
-                <IonButton expand="block" routerLink={`/club/${club.id}/booklist`}>
-                  <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
-                </IonButton>
-              </IonCol>
-          </IonRow>
-        </IonGrid>
+        <BookListWidget books={tempBooks} clubId={club.id}/>
         <h3>Members</h3>
-        <IonGrid>
-          <IonRow>
-            {tempBooks.slice(0,3).map(b =>(
-              <IonCol size="3" key={b.id}>
-                <IonAvatar>
-                  <IonImg alt="Cover" src={b.volumeInfo.imageLinks.medium}></IonImg>
-                </IonAvatar>
-              </IonCol>
-            ) )}
-              <IonCol size="3">
-                <IonAvatar>
-                <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
-                </IonAvatar>
-              </IonCol>
-          </IonRow>
-        </IonGrid>
+        <MemberListWidget members={tempBooks}/>
       </IonContent>
     </IonPage>
   )
