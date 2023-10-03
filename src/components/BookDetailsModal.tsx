@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useRef } from "react";
 import {
   IonButtons,
@@ -15,7 +14,7 @@ import {
 } from '@ionic/react';
 import { OverlayEventDetail } from '@ionic/core/components';
 
-const BookListModal = () => {
+const BookDetailsModal = ({book}) => {
   const modal = useRef<HTMLIonModalElement>(null);
   const input = useRef<HTMLIonInputElement>(null);
 
@@ -34,18 +33,7 @@ const BookListModal = () => {
   }
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Inline Modal</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <IonButton id="open-modal" expand="block">
-          Open
-        </IonButton>
-        <p>{message}</p>
-        <IonModal ref={modal} trigger="open-modal" onWillDismiss={(ev) => onWillDismiss(ev)}>
+        <IonModal ref={modal} trigger={`open-modal-${book.id}`} onWillDismiss={(ev) => onWillDismiss(ev)}>
           <IonHeader>
             <IonToolbar>
               <IonButtons slot="start">
@@ -60,15 +48,14 @@ const BookListModal = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
+            <p>{book.volumeInfo.title}</p>
             <IonItem>
               <IonLabel position="stacked">Enter your name</IonLabel>
               <IonInput ref={input} type="text" placeholder="Your name" />
             </IonItem>
           </IonContent>
         </IonModal>
-      </IonContent>
-    </IonPage>
   );
 }
 
-export default BookListModal
+export default BookDetailsModal

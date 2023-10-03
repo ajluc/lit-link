@@ -4,7 +4,6 @@ import { useParams } from "react-router"
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import tempBooks from "../data/books";
-import BookList from "./BookList";
 import NextMeetingWidget from "../components/NextMeetingWidget";
 import BookListWidget from "../components/BookListWidget";
 import MemberListWidget from "../components/MemberListWidget";
@@ -49,7 +48,6 @@ return (
           <NextMeetingWidget book={book}/>
         )}
         <h3>Future Dates</h3>
-        {/* Convert to component that accepts an array as prop - how to deal with diff data structures to access image src? */}
         <h3>Book List</h3>
         <BookListWidget books={tempBooks} clubId={club.id}/>
         <h3>Members</h3>
