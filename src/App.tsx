@@ -61,7 +61,7 @@ const App: React.FC = () => (
               <ClubDetails />
             </Route>
             <Route>
-              <Redirect to="/:tab(club)" />
+              <Redirect to="/club" />
             </Route>
           </Switch>
           <Route path="/:tab(club)/:id/booklist">
