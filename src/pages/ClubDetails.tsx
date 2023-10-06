@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonGrid, IonRow, IonCol, IonSpinner, IonImg, IonIcon, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonAvatar, IonButton, IonFab, IonFabButton, IonNavLink } from "@ionic/react"
+import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonSpinner, useIonViewWillEnter } from "@ionic/react"
 import { useParams } from "react-router"
 // One-off call to Google API for now: need to think about prop flow/architecture
 import axios from 'axios';
@@ -7,29 +7,45 @@ import tempBooks from "../data/books";
 import NextMeetingWidget from "../components/NextMeetingWidget";
 import BookListWidget from "../components/BookListWidget";
 import MemberListWidget from "../components/MemberListWidget";
+import { GetClubById } from '../services/ClubServices'
+
+import { useAtom } from "jotai";
+import clubAtom from "../store/clubStore";
 
 const ClubDetails = () => {
   const { id } = useParams<{ id?: string}>()
-  // Mock-up club info: use this to inform back-end structure/what data I want in each
-  const club = {
-    id: id,
-    clubName: 'Summer Reads',
-    bookList: tempBooks,
-    members: []
-  }
 
-  const [book, setBook] = useState<object>({})
-  useEffect(() => {
-    async function fetchBook() {
-      try {
-        const response = await axios.get('https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?');
-        const book = response.data;
-        setBook(book)
-      } catch (error) {
-        console.error('Error fetching book:', error.id);
-      }
+  const [club, setClub] = useAtom(clubAtom)
+  const [book, setBook] = useState(null)
+  
+  // Mock-up club info: use this to inform back-end structure/what data I want in each
+  // const club = {
+  //   id: id,
+  //   clubName: 'Summer Reads',
+  //   bookList: tempBooks,
+  //   members: []
+  // }
+
+  
+  useIonViewWillEnter(() => {
+    // async function fetchBook() {
+      //   try {
+        //     const response = await axios.get('https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?');
+        //     const book = response.data;
+        //     setBook(book)
+        //     console.log(book)
+        //   } catch (error) {
+          //     console.error('Error fetching book:', error.id);
+          //   }
+          // }
+    // fetchBook();
+    const fetchClubDetails = async () => {
+      const data = await GetClubById(id)
+      console.log('club: ', data)
+      setClub(data)
+      setBook(data.books[0])
     }
-    fetchBook();
+    fetchClubDetails()
   }, [])
 
 return (
@@ -44,12 +60,16 @@ return (
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
         <h3>Next Meeting</h3>
-        {!book.id ? (<IonSpinner name="dots"></IonSpinner>): (
-          <NextMeetingWidget book={book}/>
+        {club ? (
+          <NextMeetingWidget />
+          ): (
+          <IonSpinner name="dots"></IonSpinner>
         )}
         <h3>Future Dates</h3>
         <h3>Book List</h3>
-        <BookListWidget books={tempBooks} clubId={club.id}/>
+        {club ? (
+          <BookListWidget />
+        ) : <IonSpinner name="dots"></IonSpinner>}
         <h3>Members</h3>
         <MemberListWidget members={tempBooks}/>
       </IonContent>

@@ -1,16 +1,19 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonSpinner, IonGrid, IonRow, IonCol, IonImg, IonSearchbar, IonList, IonItem } from "@ionic/react"
-import { useEffect } from "react"
+import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonSpinner, IonGrid, IonRow, IonCol, IonImg, IonSearchbar, IonList, IonItem, useIonViewWillEnter } from "@ionic/react"
 import { useParams } from "react-router"
-import tempBooks from "../data/books";
 import BookDetailsModal from "../components/BookDetailsModal";
 import BookSearch from "../components/BookSearch";
 
+import { useAtom } from "jotai";
+import clubAtom from "../store/clubStore";
+
 const BookList = () => {
+  // Check that id from params matches id in atom, otherwise need to rerun api call
   const { id } = useParams<{ id?: string }>()
-  // useEffect(() => {
-  //   console.log('We are in')
-  //   console.log(id)
-  // },[])
+  const [club, setClub] = useAtom(clubAtom)
+
+  useIonViewWillEnter(() => {
+    // console.log("let me tell you something: ", club)
+  },[])
 
   return (
     <IonPage>
@@ -22,17 +25,14 @@ const BookList = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
-      {/* {!id ? (<IonSpinner name="dots"></IonSpinner>): ( */}
         <div>
           <p>Reading List</p>
           <IonGrid>
             <IonRow>
-              {tempBooks.map(b =>(
+              {club.books.map(b =>(
                 <IonCol size="3" key={b.id}>
-                  {/* <IonAvatar> */}
-                    <IonImg id={`open-modal-${b.id}`} alt="Cover" src={b.volumeInfo.imageLinks.medium}></IonImg>
-                    <BookDetailsModal book={b}/>
-                  {/* </IonAvatar> */}
+                  <IonImg id={`open-modal-${b.id}`} alt="Cover" src={b.data.volumeInfo.imageLinks.medium}></IonImg>
+                  <BookDetailsModal book={b.data}/>
                 </IonCol>
               ) )}
             </IonRow>

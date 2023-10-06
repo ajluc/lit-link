@@ -2,17 +2,26 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabBut
 import { add } from 'ionicons/icons';
 import { useState } from 'react';
 import './Tab1.css';
-import TempCardItem from '../components/clubCard';
-import { TempCard, getCards } from '../data/cards';
+import ClubCard from '../components/clubCard';
+import { GetClubs } from '../services/ClubServices'
+
+export interface CardData {
+  id: number,
+  clubName: string
+}
 
 const Tab1: React.FC = () => {
+  const [cards, setCards] = useState<CardData[]>([])
 
-  const [cards, setCards] = useState<TempCard[]>([])
+  const fetchAllClubs = async () => {
+    const data = await GetClubs()
+    setCards(data)
+  }
 
   useIonViewWillEnter(() => {
-    const cards = getCards()
-    setCards(cards)
-  })
+    fetchAllClubs()
+  },[])
+
 
   return (
     <IonPage>
@@ -25,9 +34,9 @@ const Tab1: React.FC = () => {
         <h3>My Clubs</h3>
         <IonGrid>
           <IonRow>
-            {cards.map(c => (
+            {cards?.map(c => (
               <IonCol size="6" size-md="4" size-lg="2"  key={c.id}>
-                <TempCardItem tempCard={c}/>
+                <ClubCard card={c}/>
               </IonCol>
             ))}
           </IonRow>

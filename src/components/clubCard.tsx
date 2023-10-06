@@ -1,23 +1,17 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
-import { TempCard } from '../data/cards';
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
 
-interface TempCardItemProps {
-  tempCard: TempCard;
-}
 
-const TempCardItem: React.FC<TempCardItemProps> = ({ tempCard }) => {
+
+const ClubCard: React.FC = ({card}) => {
   return (
     // Add router link to IonCard later to open it up and view card
-    <IonCard routerLink={`/club/${tempCard.id}`} routerDirection='forward'>
-      <img alt={tempCard.alt} src={tempCard.src} />
+    <IonCard routerLink={`/club/${card.id}`} routerDirection='forward'>
+      <img alt='' src="https://ionicframework.com/docs/img/demos/card-media.png" />
       <IonCardHeader>
-        <IonCardTitle>{tempCard.title}</IonCardTitle>
-        <IonCardSubtitle>{tempCard.subtitle}</IonCardSubtitle>
+        <IonCardTitle>{card.clubName}</IonCardTitle>
       </IonCardHeader>
-
-      {/* <IonCardContent>{tempCard.content}</IonCardContent> */}
     </IonCard>
   );
 };
 
-export default TempCardItem;
+export default ClubCard;
