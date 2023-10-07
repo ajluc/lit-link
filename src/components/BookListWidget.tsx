@@ -17,7 +17,7 @@ const BookListWidget = () => {
             </IonCol>
           ) )}
             <IonCol size="3">
-              <IonButton expand="block" routerLink={`/club/${club.Id}/booklist`}>
+              <IonButton expand="block" routerLink={`/club/${club.id}/booklist`}>
                 <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
               </IonButton>
             </IonCol>
