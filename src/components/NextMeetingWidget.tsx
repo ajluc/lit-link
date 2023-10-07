@@ -22,7 +22,7 @@ const NextMeetingWidget = () => {
           <IonCol size="6.5">
             {/* <IonCard> */}
               <IonImg id={`open-modal-${currentBook?.id}`} alt="Cover" src={currentBook?.data.volumeInfo.imageLinks.medium}></IonImg>
-              {/* <BookDetailsModal book={currentBook}/> */}
+              <BookDetailsModal book={currentBook.data}/>
             {/* </IonCard> */}
           </IonCol>
           ): (<></>)}
