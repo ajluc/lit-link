@@ -41,9 +41,9 @@ const ClubDetails = () => {
     // fetchBook();
     const fetchClubDetails = async () => {
       const data = await GetClubById(id)
-      console.log('club: ', data)
       setClub(data)
       setBook(data.books[0])
+      console.log(club)
     }
     fetchClubDetails()
   }, [])

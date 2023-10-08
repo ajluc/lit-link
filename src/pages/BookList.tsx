@@ -5,6 +5,7 @@ import BookSearch from "../components/BookSearch";
 
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
+import { useEffect } from "react";
 
 const BookList = () => {
   // Check that id from params matches id in atom, otherwise need to rerun api call
@@ -12,9 +13,6 @@ const BookList = () => {
   // console.log('club id: ', id)
   const [club, setClub] = useAtom(clubAtom)
 
-  // useIonViewWillEnter(() => {
-  //   console.log("let me tell you something: ", club)
-  // },[club])
 
   return (
     <IonPage>

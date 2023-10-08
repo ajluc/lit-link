@@ -4,6 +4,7 @@ import axios from "axios";
 import { IonSearchbar, IonList, IonItem, IonAvatar, IonLabel, useIonViewWillEnter } from "@ionic/react";
 import { GetBookById, CreateBook } from '../services/BookServices.js'
 import { AddBookToList } from '../services/ClubServices.js'
+import { GetClubById } from '../services/ClubServices'
 
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
@@ -18,18 +19,19 @@ const BookSearch = () => {
             const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
             const books = response.data.items
             setResults(books)
-            console.log(books)
         } catch (error) {
             console.error('Error fetching books:', error.id)
         }
     }
 
+    const fetchClubDetails = async (id) => {
+        const data = await GetClubById(id)
+        setClub(data)
+      }
+
     const addBookToReadingList = async (data) => {
         try {
-            console.log("club id: ", club.id)
-            console.log("book id: ", data.id)
             const book = await axios.get(`https://www.googleapis.com/books/v1/volumes/${data.id}`)
-            console.log("book: ", book)
             // check if book exists in database
             const bookExists = await GetBookById(data.id)
             if (!bookExists) {
@@ -39,7 +41,7 @@ const BookSearch = () => {
                     "data": book.data})
             }
             await AddBookToList(data.id, club.id)
-            setClub([...club.books, {"id": data.id,"data": book.data}])
+            await fetchClubDetails(club.id)
         } catch (error) {
             console.error('Error fetching books:', error.id)
         }
