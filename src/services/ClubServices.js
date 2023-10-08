@@ -17,3 +17,12 @@ export const GetClubById = async (clubId) => {
         throw error
     }
 }
+
+export const AddBookToList = async (book, clubId) => {
+    try {
+        const res = await Client.post(`/clubs/${clubId}/${book.id}`)
+        return res.data
+    } catch (error) {
+        throw error
+    }
+}

@@ -9,6 +9,7 @@ import clubAtom from "../store/clubStore";
 const BookList = () => {
   // Check that id from params matches id in atom, otherwise need to rerun api call
   const { id } = useParams<{ id?: string }>()
+  console.log('club id: ', id)
   const [club, setClub] = useAtom(clubAtom)
 
   useIonViewWillEnter(() => {
@@ -29,9 +30,9 @@ const BookList = () => {
           <p>Reading List</p>
           <IonGrid>
             <IonRow>
-              {club.books.map(b =>(
+              {club.books?.map(b =>(
                 <IonCol size="3" key={b.id}>
-                  <IonImg id={`open-modal-${b.id}`} alt="Cover" src={b.data.volumeInfo.imageLinks.medium}></IonImg>
+                  <IonImg id={`open-modal-${b.id}`} alt="Cover" src={b.data.volumeInfo.imageLinks.medium} onClick={() => console.log(`open-modal-${b.id}`)}></IonImg>
                   <BookDetailsModal book={b.data}/>
                 </IonCol>
               ) )}
