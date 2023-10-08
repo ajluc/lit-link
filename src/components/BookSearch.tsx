@@ -36,7 +36,7 @@ const BookSearch = () => {
                 // Add book
                 const newBook = await CreateBook({
                     "id": data.id,
-                    "data": book})
+                    "data": book.data})
             }
             const response = await AddBookToList(data.id, club.id)
             // console.log(response)
