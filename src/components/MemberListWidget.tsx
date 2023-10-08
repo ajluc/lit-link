@@ -8,7 +8,7 @@ const MemberListWidget = ({members}) => {
                 {members.slice(0,3).map(m =>(
                     <IonCol size="3" key={m.id}>
                     <IonAvatar>
-                        <IonImg alt="Cover" src={m.volumeInfo.imageLinks.medium}></IonImg>
+                        <IonImg alt="Cover" src={m.volumeInfo.imageLinks.thumbnail}></IonImg>
                     </IonAvatar>
                     </IonCol>
                 ) )}

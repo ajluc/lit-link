@@ -15,7 +15,7 @@ const NextMeetingWidget = () => {
           <IonRow>
             <IonCol size="6.5">
               <IonCard>
-                <IonImg id={`open-modal-${currentBook.id}`} alt="Cover" src={currentBook?.data.volumeInfo.imageLinks.medium}></IonImg>
+                <IonImg id={`open-modal-${currentBook.id}`} alt="Cover" src={currentBook?.data.volumeInfo.imageLinks.thumbnail}></IonImg>
                 <BookDetailsModal book={currentBook.data}/>
               </IonCard>
             </IonCol>

@@ -60,11 +60,11 @@ return (
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
         <h3>Next Meeting</h3>
-        {club ? (
+        {/* {club ? (
           <NextMeetingWidget />
           ): (
           <IonSpinner name="dots"></IonSpinner>
-        )}
+        )} */}
         <h3>Future Dates</h3>
         <h3>Book List</h3>
         {club ? (

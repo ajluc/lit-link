@@ -13,7 +13,7 @@ const BookListWidget = () => {
           {/* Later with web formatting, slice size should be responsive to screen size */}
           {club.books?.slice(0,3).map(b =>(
             <IonCol size="3" key={b.id}>
-              <IonImg alt="Cover" src={b.data.volumeInfo.imageLinks.medium}></IonImg>
+              <IonImg alt="Cover" src={b.data.volumeInfo.imageLinks.thumbnail}></IonImg>
             </IonCol>
           ) )}
             <IonCol size="3">

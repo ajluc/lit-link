@@ -3,9 +3,14 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { IonSearchbar, IonList, IonItem, IonAvatar, IonLabel, useIonViewWillEnter } from "@ionic/react";
 import { GetBookById, CreateBook } from '../services/BookServices.js'
+import { AddBookToList } from '../services/ClubServices.js'
+
+import { useAtom } from "jotai";
+import clubAtom from "../store/clubStore";
 
 const BookSearch = () => {
-    const { id } = useParams<{ id?: string}>()
+    const [club, setClub] = useAtom(clubAtom)
+
     let [results, setResults] = useState([])
 
     const searchGoogleBooks = async (query) => {
@@ -19,27 +24,21 @@ const BookSearch = () => {
         }
     }
 
-    useIonViewWillEnter (() => {
-        console.log(id)
-    },[id])
-
     const addBookToReadingList = async (data) => {
         try {
-            console.log(id)
+            console.log("club id: ", club.id)
+            console.log("book id: ", data.id)
+            const book = await axios.get(`https://www.googleapis.com/books/v1/volumes/${data.id}`)
+            console.log("book: ", book)
             // check if book exists in database
-            // const response = await GetBookById(data.id)
-            // if (response) {
-            //     console.log('yes')
-            //     // Add to reading list
-            // } else {
-            //     console.log('no')
-            //     // Add book
-            //     const book = await CreateBook({
-            //         "id": data.id,
-            //         "data": data})
-            //     console.log(book)
-            //     // Then, add to reading list
-            // }
+            const bookExists = await GetBookById(data.id)
+            if (!bookExists) {
+                // Add book
+                const newBook = await CreateBook({
+                    "id": data.id,
+                    "data": book})
+            }
+            const response = await AddBookToList(data.id, club.id)
             // console.log(response)
             console.log(`Push book ${data.id} to book list array on back end: `, data)
         } catch (error) {
