@@ -9,8 +9,8 @@ import { useEffect } from "react";
 
 const BookList = () => {
   // Check that id from params matches id in atom, otherwise need to rerun api call
-  // const { id } = useParams<{ id?: string }>()
-  // console.log('club id: ', id)
+  const { id } = useParams<{ id?: string }>()
+  console.log('club id: ', id)
   const [club, setClub] = useAtom(clubAtom)
 
 
@@ -25,6 +25,7 @@ const BookList = () => {
       </IonHeader>
       <IonContent fullscreen class='ion-padding'>
         <div>
+          <p>{id}</p>
           <p>Reading List</p>
           <IonGrid>
             <IonRow>

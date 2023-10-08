@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import { IonSearchbar, IonList, IonItem, IonAvatar, IonLabel, useIonViewWillEnter } from "@ionic/react";
@@ -9,25 +9,42 @@ import { GetClubById } from '../services/ClubServices'
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
 
-const BookSearch = () => {
-    const [club, setClub] = useAtom(clubAtom)
-
+const BookSearch = ({clubId}) => {
+    const [club, setClub] = useState({})
     let [results, setResults] = useState([])
 
     const searchGoogleBooks = async (query) => {
         try {
             const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
             const books = response.data.items
+            console.log("books: ", books)
             setResults(books)
         } catch (error) {
             console.error('Error fetching books:', error.id)
         }
     }
+    
+    const handleInput = (ev: Event) => {
+        let query = '';
+        const target = ev.target as HTMLIonSearchbarElement;
+        if (target) query = target.value!.toLowerCase();
+        if (query === '') {setResults([])} else {searchGoogleBooks(query)}
+        console.log("query: ", query)
+    };
 
-    const fetchClubDetails = async (id) => {
-        const data = await GetClubById(id)
-        setClub(data)
-      }
+    const fetchClubDetails = async () => {
+        const data = await GetClubById(clubId)
+        if (data) {
+            setClub(data)
+            console.log("club: ", club)
+        }
+        // await setClub(data)
+        console.log("data: ", data)
+    }
+    
+    useEffect(() => {
+        fetchClubDetails()
+    }, [])
 
     const addBookToReadingList = async (data) => {
         try {
@@ -41,29 +58,23 @@ const BookSearch = () => {
                     "data": book.data})
             }
             await AddBookToList(data.id, club.id)
-            await fetchClubDetails(club.id)
+            fetchClubDetails()
         } catch (error) {
             console.error('Error fetching books:', error.id)
         }
     }
     
-    const handleInput = (ev: Event) => {
-        let query = '';
-        const target = ev.target as HTMLIonSearchbarElement;
-        if (target) query = target.value!.toLowerCase();
-        if (query === '') {setResults([])} else {searchGoogleBooks(query)}
-    };
 
     return (
         <div>
             <IonSearchbar debounce={1000} onIonInput={(ev) => handleInput(ev)}></IonSearchbar>
             <IonList>
-                {results.map((result) => (
+                {results?.map((result) => (
                 <IonItem key={result.id} onClick={() => addBookToReadingList(result)}>
                     <IonAvatar aria-hidden="true" slot="start">
-                        <img alt="" src={result.volumeInfo.imageLinks.thumbnail} />
+                        <img alt="" src={result.volumeInfo.imageLinks?.thumbnail} />
                     </IonAvatar>
-                    <IonLabel>{result.volumeInfo.title}</IonLabel>
+                    <IonLabel>{result.volumeInfo?.title}</IonLabel>
                 </IonItem>
                 ))}
             </IonList>

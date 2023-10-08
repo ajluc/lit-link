@@ -44,7 +44,7 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Switch>
+          {/* <Switch> */}
             <Route exact path="/:tab(club)">
               <Tab1 />
             </Route>
@@ -57,16 +57,16 @@ const App: React.FC = () => (
             <Route path="/:tab(club)/new">
               <NewClub />
             </Route>
-            <Route path="/:tab(club)/:id">
+            <Route path="/:tab(club)/id/:id">
               <ClubDetails />
             </Route>
+          <Route path="/:tab(club)/booklist/:id">
+            <BookList />
+          </Route>
             <Route>
               <Redirect to="/club" />
             </Route>
-          </Switch>
-          <Route path="/:tab(club)/:id/booklist">
-            <BookList />
-          </Route>
+          {/* </Switch> */}
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">

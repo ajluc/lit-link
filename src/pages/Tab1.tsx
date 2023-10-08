@@ -5,12 +5,16 @@ import './Tab1.css';
 import ClubCard from '../components/clubCard';
 import { GetClubs } from '../services/ClubServices'
 
+import { useAtom } from "jotai";
+import clubAtom from "../store/clubStore";
+
 export interface CardData {
   id: number,
   clubName: string
 }
 
 const Tab1: React.FC = () => {
+  const [club, setClub] = useAtom(clubAtom)
   const [cards, setCards] = useState<CardData[]>([])
 
   const fetchAllClubs = async () => {
@@ -20,6 +24,7 @@ const Tab1: React.FC = () => {
 
   useIonViewWillEnter(() => {
     fetchAllClubs()
+    setClub({})
   },[])
 
 
