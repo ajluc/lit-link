@@ -38,9 +38,8 @@ const BookSearch = () => {
                     "id": data.id,
                     "data": book.data})
             }
-            const response = await AddBookToList(data.id, club.id)
-            // console.log(response)
-            console.log(`Push book ${data.id} to book list array on back end: `, data)
+            await AddBookToList(data.id, club.id)
+            setClub([...club.books, {"id": data.id,"data": book.data}])
         } catch (error) {
             console.error('Error fetching books:', error.id)
         }

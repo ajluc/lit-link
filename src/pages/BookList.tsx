@@ -12,9 +12,9 @@ const BookList = () => {
   // console.log('club id: ', id)
   const [club, setClub] = useAtom(clubAtom)
 
-  useIonViewWillEnter(() => {
-    // console.log("let me tell you something: ", club)
-  },[])
+  // useIonViewWillEnter(() => {
+  //   console.log("let me tell you something: ", club)
+  // },[club])
 
   return (
     <IonPage>
