@@ -41,6 +41,7 @@ export const RemoveBookFromList = async (bookId, clubId) => {
 export const CreateClub = async (data) => {
   try {
     const res = await Client.post('/clubs', data)
+    return res.data
   } catch (error) {
     throw error
   }

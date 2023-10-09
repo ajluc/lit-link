@@ -1,5 +1,5 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonList, IonItem, IonInput, IonButton } from "@ionic/react"
-import { Controller, useForm, SubmitHandler } from 'react-hook-form'
+import { IonBackButton, IonButtons, IonHeader, IonPage, IonToolbar, IonContent, IonList, IonItem, IonInput, IonButton, useIonRouter } from "@ionic/react"
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { CreateClub } from "../services/ClubServices.js"
 
 interface IFormInput {
@@ -13,8 +13,14 @@ const NewClub = () => {
     }
   })
 
+  const router = useIonRouter()
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const newClub = await CreateClub(data)
+    const goToPage = () => {
+      router.push(`/club/id/${newClub.id}`, 'forward', 'replace')
+    }
+    goToPage()
   }
 
   return (

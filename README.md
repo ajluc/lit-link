@@ -52,3 +52,5 @@ React Hook Form: [Aaron Saunders on Youtube](https://www.youtube.com/watch?v=Kdg
 State Management: [Jotai](https://jotai.org/)
 
 Ionic Documentation: [Ionic](https://ionicframework.com/docs)
+
+Ionic Navigation: [Ionic](https://ionicframework.com/docs/react/navigation#working-with-tabs)
