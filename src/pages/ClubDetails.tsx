@@ -9,6 +9,7 @@ import { GetClubById } from '../services/ClubServices'
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
 import BookListModal from "../components/BookListModal";
+import MemberListModal from "../components/MemberListModal";
 
 const ClubDetails = () => {
   const { id } = useParams<{ id?: string}>()
@@ -49,7 +50,8 @@ return (
           </div>
         ) : <IonSpinner name="dots"></IonSpinner>}
         <h3>Members</h3>
-        <MemberListWidget members={tempBooks}/>
+        <MemberListWidget/>
+        <MemberListModal/>
       </IonContent>
     </IonPage>
   )
