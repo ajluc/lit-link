@@ -24,12 +24,13 @@ const BookDetailsModal = ({book}) => {
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
-            <IonImg alt="Cover" src={book.volumeInfo.imageLinks.large}></IonImg>
+            <IonImg alt="Cover" src={book.volumeInfo.imageLinks?.medium}></IonImg>
             {!book.volumeInfo.authors[1] ? (<p>{book.volumeInfo.authors[0]}</p>) : (<p>{book.volumeInfo.authors[0]} et al</p>)}
             <h3>{book.volumeInfo.title}</h3>
-            <h3>{book.volumeInfo.subtitle}</h3>
-            <p>Published {book.volumeInfo.publishedDate.split("-")[0]}</p>
+            <h3>{book.volumeInfo?.subtitle}</h3>
+            <p>Published {book.volumeInfo.publishedDate?.split("-")[0]}</p>
             <div dangerouslySetInnerHTML={{ __html: book.volumeInfo.description}} />
+            <IonButton className="ion-margin-top" onClick={()=> console.log('clicked')} expand="block" >Remove Book From List</IonButton>
           </IonContent>
         </IonModal>
   );

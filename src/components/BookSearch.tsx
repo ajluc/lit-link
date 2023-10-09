@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useState } from "react";
 import axios from "axios";
 import { IonSearchbar, IonList, IonItem, IonAvatar, IonLabel, useIonViewWillEnter } from "@ionic/react";
 import { GetBookById, CreateBook } from '../services/BookServices.js'
@@ -10,7 +9,7 @@ import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
 
 const BookSearch = ({clubId}) => {
-    const [club, setClub] = useState({})
+    const [club, setClub] = useAtom(clubAtom)
     let [results, setResults] = useState([])
 
     const searchGoogleBooks = async (query) => {
@@ -34,17 +33,8 @@ const BookSearch = ({clubId}) => {
 
     const fetchClubDetails = async () => {
         const data = await GetClubById(clubId)
-        if (data) {
-            setClub(data)
-            console.log("club: ", club)
-        }
-        // await setClub(data)
-        console.log("data: ", data)
+        setClub(data)
     }
-    
-    useEffect(() => {
-        fetchClubDetails()
-    }, [])
 
     const addBookToReadingList = async (data) => {
         try {
@@ -57,8 +47,8 @@ const BookSearch = ({clubId}) => {
                     "id": data.id,
                     "data": book.data})
             }
-            await AddBookToList(data.id, club.id)
-            fetchClubDetails()
+            await AddBookToList(data.id, clubId)
+            await fetchClubDetails()
         } catch (error) {
             console.error('Error fetching books:', error.id)
         }

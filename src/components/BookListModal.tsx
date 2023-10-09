@@ -15,9 +15,12 @@ import {
 import BookSearch from "../components/BookSearch";
 import BookDetailsModal from "../components/BookDetailsModal";
 
+import { useAtom } from "jotai";
+import clubAtom from "../store/clubStore";
 
+const BookListModal = () => {
+  const [club] = useAtom(clubAtom)
 
-const BookListModal = ({club}) => {
   const modal = useRef<HTMLIonModalElement>(null);
 
   return (
@@ -35,7 +38,7 @@ const BookListModal = ({club}) => {
             <IonRow>
               {club.books?.map(b =>(
                 <IonCol size="3" key={b.id}>
-                  <IonImg id={`open-modal-${b.id}`} alt="Cover" src={b.data.volumeInfo.imageLinks?.thumbnail} onClick={() => console.log(`open-modal-${b.id}`)}></IonImg>
+                  <IonImg id={`open-modal-${b.id}`} alt="Cover" src={b.data.volumeInfo.imageLinks?.thumbnail}></IonImg>
                   <BookDetailsModal book={b.data}/>
                 </IonCol>
               ) )}

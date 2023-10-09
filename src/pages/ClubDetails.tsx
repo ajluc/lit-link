@@ -1,7 +1,5 @@
 import { IonBackButton, IonButtons, IonButton, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonSpinner, useIonViewWillEnter } from "@ionic/react"
 import { useParams } from "react-router"
-import axios from 'axios';
-import { useState, useEffect } from "react";
 import tempBooks from "../data/books";
 import NextMeetingWidget from "../components/NextMeetingWidget";
 import BookListWidget from "../components/BookListWidget";
@@ -15,14 +13,12 @@ import BookListModal from "../components/BookListModal";
 const ClubDetails = () => {
   const { id } = useParams<{ id?: string}>()
 
-  const [club, setClub] = useState({})
-  const [book, setBook] = useState(null)
+  const [club, setClub] = useAtom(clubAtom)
   
   useIonViewWillEnter(() => {
     const fetchClubDetails = async () => {
       const data = await GetClubById(id)
       setClub(data)
-      setBook(data.books[0])
     }
     fetchClubDetails()
   }, [])
@@ -51,7 +47,7 @@ return (
           // <BookListWidget club={club}/>
           <div>
             <IonButton id={`open-modal-${club.id}`} expand="block" >Click me</IonButton>
-            <BookListModal club={club}/>
+            <BookListModal/>
           </div>
         ) : <IonSpinner name="dots"></IonSpinner>}
         <h3>Members</h3>
