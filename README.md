@@ -23,6 +23,7 @@ This mobile app is meant to streamline organization for all of your bookclubs.
 5. Node.js
 6. Ionic Framework
 7. Google Books API
+8. Jotai State Management
 
 <!-- ---
 
@@ -47,3 +48,7 @@ On the home page, view a map with active Stoops. Click each Stoop to view the fu
 ### **_Credits_**
 
 React Hook Form: [Aaron Saunders on Youtube](https://www.youtube.com/watch?v=Kdgu075v2fM)
+
+State Management: [Jotai](https://jotai.org/)
+
+Ionic Documentation: [Ionic](https://ionicframework.com/docs)
