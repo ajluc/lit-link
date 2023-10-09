@@ -29,6 +29,15 @@ export const AddBookToList = async (bookId, clubId) => {
   }
 }
 
+export const RemoveBookFromList = async (bookId, clubId) => {
+  try {
+    const res = await Client.delete(`/clubs/${clubId}/${bookId}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const CreateClub = async (data) => {
   try {
     const res = await Client.post('/clubs', data)

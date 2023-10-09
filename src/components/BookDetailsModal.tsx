@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useParams } from "react-router";
 import {
   IonButtons,
   IonButton,
@@ -9,10 +10,32 @@ import {
   IonTitle,
   IonImg
 } from '@ionic/react';
+import { RemoveBookFromList, GetClubById } from "../services/ClubServices.js"
+
+import { useAtom } from "jotai";
+import clubAtom from "../store/clubStore";
 
 const BookDetailsModal = ({book}) => {
   const modal = useRef<HTMLIonModalElement>(null);
+  const { id } = useParams<{ id?: string}>()
 
+  const [club, setClub] = useAtom(clubAtom)
+
+  const fetchClubDetails = async () => {
+    const data = await GetClubById(id)
+    setClub(data)
+    console.log(data)
+  }
+
+  const RemoveBook = async () => {
+    await RemoveBookFromList(book.id, id)
+    await fetchClubDetails()
+  }
+
+  const handleClick = () => {
+    RemoveBook()
+    modal.current?.dismiss()
+  }
   return (
         <IonModal ref={modal} trigger={`open-modal-${book.id}`} >
           <IonHeader>
@@ -30,7 +53,7 @@ const BookDetailsModal = ({book}) => {
             <h3>{book.volumeInfo?.subtitle}</h3>
             <p>Published {book.volumeInfo.publishedDate?.split("-")[0]}</p>
             <div dangerouslySetInnerHTML={{ __html: book.volumeInfo.description}} />
-            <IonButton className="ion-margin-top" onClick={()=> console.log('clicked')} expand="block" >Remove Book From List</IonButton>
+            <IonButton className="ion-margin-top" onClick={handleClick} expand="block" >Remove Book From List</IonButton>
           </IonContent>
         </IonModal>
   );
