@@ -4,9 +4,8 @@ import { ellipsisHorizontal } from 'ionicons/icons';
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
 
-const BookListWidget = ({club}) => {
-  // const [club, setClub] = useAtom(clubAtom)
-  console.log(club)
+const BookListWidget = () => {
+  const [club] = useAtom(clubAtom)
 
   return (
       <IonGrid>
@@ -18,9 +17,9 @@ const BookListWidget = ({club}) => {
             </IonCol>
           ) )}
             <IonCol size="3">
-              <IonButton expand="block" routerLink={`/club/booklist/${club.id}`}>
+            <IonButton id={`open-modal-${club.id}`} expand="block" >
                 <IonIcon aria-hidden="true" icon={ellipsisHorizontal} />
-              </IonButton>
+            </IonButton>
             </IonCol>
         </IonRow>
       </IonGrid>

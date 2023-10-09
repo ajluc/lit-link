@@ -6,7 +6,7 @@ import clubAtom from "../store/clubStore";
 
 const NextMeetingWidget = () => {
   const [club, setClub] = useAtom(clubAtom)
-  const currentBook = club.books?.shift()
+  const currentBook = club.books?.find(Boolean)
   
 
   return (

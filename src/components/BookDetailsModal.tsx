@@ -24,7 +24,6 @@ const BookDetailsModal = ({book}) => {
   const fetchClubDetails = async () => {
     const data = await GetClubById(id)
     setClub(data)
-    console.log(data)
   }
 
   const RemoveBook = async () => {
