@@ -3,6 +3,9 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { SignInUser } from '../services/Auth';
 import { useState } from 'react';
 
+import { useAtom } from "jotai";
+import userAtom from '../store/userStore';
+
 interface IFormInput {
   email: string,
   password: string
@@ -17,14 +20,16 @@ const SignIn: React.FC = () => {
   })
 
   const [showToast, setShowToast] = useState(false)
+  const [user, setUser] = useAtom(userAtom)
 
   const router = useIonRouter()
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const payload = await SignInUser(data)
     if (payload) {
+      await setUser(payload)
       const goToPage = () => {
-          router.push('/my/club','none', 'replace')
+        router.push('/my/club','none', 'replace')
       }
       goToPage()
     } else {
@@ -48,6 +53,7 @@ const SignIn: React.FC = () => {
             </IonList>
             <IonButton type='submit' expand='block' className='ion-margin-top'>Sign In</IonButton>
           </form>
+            <IonButton routerLink='/register' expand='block' className='ion-margin-top'>Register</IonButton>
           <IonToast isOpen={showToast} onDidDismiss={() => setShowToast(false)} message="Password is incorrect. Please try again." />
       </IonContent>
     </IonPage>

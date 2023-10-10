@@ -27,6 +27,7 @@ import './theme/variables.css';
 
 import { useAtom } from "jotai";
 import userAtom from "./store/userStore";
+
 import SignIn from './pages/SignIn';
 import Tabs from './components/Tabs';
 import Register from './pages/Register';
