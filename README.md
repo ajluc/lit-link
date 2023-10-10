@@ -54,3 +54,5 @@ State Management: [Jotai](https://jotai.org/)
 Ionic Documentation: [Ionic](https://ionicframework.com/docs)
 
 Ionic Navigation: [Ionic](https://ionicframework.com/docs/react/navigation#working-with-tabs)
+
+Using Tabs: [@mirkonasato](https://forum.ionicframework.com/t/react-navigation-with-login-screen-then-dashboard-with-tabs/193116/3)

@@ -36,52 +36,31 @@ import './theme/variables.css';
 import ClubDetails from './pages/ClubDetails';
 import NewClub from './pages/NewClub';
 
+import { useAtom } from "jotai";
+import userAtom from "./store/userStore";
+import SignIn from './pages/SignIn';
+import Tabs from './components/Tabs';
+
 setupIonicReact();
 
-const App: React.FC = () => (
+const App: React.FC = () => {
+  const [user, setUser] = useAtom(userAtom)
+
+  return (
   <IonApp>
     <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          {/* <Switch> */}
-            <Route exact path="/:tab(club)">
-              <Tab1 />
-            </Route>
-            <Route exact path="/:tab(calendar)">
-              <Tab2 />
-            </Route>
-            <Route exact path="/:tab(profile)">
-              <Tab3 />
-            </Route>
-            <Route path="/:tab(club)/new">
-              <NewClub />
-            </Route>
-            <Route path="/:tab(club)/id/:id">
-              <ClubDetails />
-            </Route>
-            <Route>
-              <Redirect to="/club" />
-            </Route>
-          {/* </Switch> */}
-        </IonRouterOutlet>
-
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="club" href="/club">
-            <IonIcon aria-hidden="true" icon={book} />
-            <IonLabel>Clubs</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="calendar" href="/calendar">
-            <IonIcon aria-hidden="true" icon={calendar} />
-            <IonLabel>Calendar</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="profile" href="/profile">
-            <IonIcon aria-hidden="true" icon={person} />
-            <IonLabel>Profile</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
+      <IonRouterOutlet>
+        <Route exact path="/login">
+          <SignIn />
+        </Route>
+        <Route path="/my" component={Tabs} />
+        <Route>
+          <Redirect to="/my/club" />
+        </Route>
+      </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
-);
+  )
+  };
 
 export default App;
