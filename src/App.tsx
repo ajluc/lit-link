@@ -1,19 +1,10 @@
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { calendar, person, book } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,13 +24,12 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import ClubDetails from './pages/ClubDetails';
-import NewClub from './pages/NewClub';
 
 import { useAtom } from "jotai";
 import userAtom from "./store/userStore";
 import SignIn from './pages/SignIn';
 import Tabs from './components/Tabs';
+import Register from './pages/Register';
 
 setupIonicReact();
 
@@ -50,8 +40,11 @@ const App: React.FC = () => {
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/login">
+        <Route exact path="/signin">
           <SignIn />
+        </Route>
+        <Route exact path="/register">
+          <Register />
         </Route>
         <Route path="/my" component={Tabs} />
         <Route>

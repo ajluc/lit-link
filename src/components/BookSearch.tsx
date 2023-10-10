@@ -1,9 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { IonSearchbar, IonList, IonItem, IonAvatar, IonLabel, useIonViewWillEnter } from "@ionic/react";
-import { GetBookById, CreateBook } from '../services/BookServices.js'
-import { AddBookToList } from '../services/ClubServices.js'
-import { GetClubById } from '../services/ClubServices'
+import { GetBookById, CreateBook } from '../services/BookServices'
+import { AddBookToList, GetClubById } from '../services/ClubServices'
 
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";

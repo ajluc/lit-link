@@ -10,7 +10,7 @@ import {
   IonTitle,
   IonImg
 } from '@ionic/react';
-import { RemoveBookFromList, GetClubById } from "../services/ClubServices.js"
+import { RemoveBookFromList, GetClubById } from "../services/ClubServices"
 
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
