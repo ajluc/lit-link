@@ -18,7 +18,7 @@ const NewClub = () => {
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const newClub = await CreateClub(data)
     const goToPage = () => {
-      router.push(`/club/id/${newClub.id}`, 'forward', 'replace')
+      router.push(`/my/club/id/${newClub.id}`, 'forward', 'replace')
     }
     goToPage()
   }

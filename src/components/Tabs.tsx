@@ -14,6 +14,7 @@ import Tab3 from '../pages/Tab3';
 
 import ClubDetails from '../pages/ClubDetails';
 import NewClub from '../pages/NewClub';
+import NotFound from '../pages/NotFound';
 
 const Tabs: React.FC = () => (
 <IonTabs>
@@ -32,6 +33,9 @@ const Tabs: React.FC = () => (
         </Route>
         <Route path="/my/:tab(club)/id/:id">
             <ClubDetails />
+        </Route>
+        <Route>
+            <NotFound />
         </Route>
     </IonRouterOutlet>
         <IonTabBar slot="bottom">
