@@ -31,11 +31,25 @@ import userAtom from "./store/userStore";
 import SignIn from './pages/SignIn';
 import Tabs from './components/Tabs';
 import Register from './pages/Register';
+import { CheckSession } from './services/Auth';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
 const App: React.FC = () => {
   const [user, setUser] = useAtom(userAtom)
+
+  const checkToken = async () => {
+    const user = await CheckSession()
+    setUser(user)
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      checkToken()
+    }
+  }, [])
 
   return (
   <IonApp>

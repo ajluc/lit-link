@@ -1,7 +1,22 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonRouter, useIonViewWillEnter } from '@ionic/react';
 import './Tab2.css';
 
+import { useAtom } from "jotai";
+import userAtom from '../store/userStore';
+
 const Tab2: React.FC = () => {
+  const [user] = useAtom(userAtom)
+  const router = useIonRouter()
+
+  useIonViewWillEnter(() => {
+    if (!user.id) {
+      const goToPage = () => {
+        router.push('/signin','none', 'replace')
+      }
+      goToPage()
+    }
+  }, [])
+
   return (
     <IonPage>
       <IonHeader>

@@ -1,10 +1,22 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, useIonViewWillEnter, useIonRouter } from '@ionic/react';
 import './Tab3.css';
 import { useAtom } from 'jotai';
 import userAtom from '../store/userStore';
 
 const Tab3: React.FC = () => {
   const [user, setUser] = useAtom(userAtom)
+
+  const router = useIonRouter()
+
+  useIonViewWillEnter(() => {
+    if (!user.id) {
+      const goToPage = () => {
+        router.push('/signin','none', 'replace')
+      }
+      goToPage()
+    }
+  }, [])
+
   const handleLogout = () => {
     setUser({})
     localStorage.clear()

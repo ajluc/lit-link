@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, useIonViewWillEnter } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, useIonViewWillEnter, useIonRouter } from '@ionic/react';
 import { add } from 'ionicons/icons';
 import { useState } from 'react';
 import './Tab1.css';
@@ -7,6 +7,7 @@ import { GetClubs } from '../services/ClubServices'
 
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
+import userAtom from '../store/userStore';
 
 export interface CardData {
   id: number,
@@ -16,6 +17,9 @@ export interface CardData {
 const Tab1: React.FC = () => {
   const [club, setClub] = useAtom(clubAtom)
   const [cards, setCards] = useState<CardData[]>([])
+  const [user] = useAtom(userAtom)
+  const router = useIonRouter()
+
 
   const fetchAllClubs = async () => {
     const data = await GetClubs()
@@ -23,6 +27,12 @@ const Tab1: React.FC = () => {
   }
 
   useIonViewWillEnter(() => {
+    if (!user.id) {
+      const goToPage = () => {
+        router.push('/signin','none', 'replace')
+      }
+      goToPage()
+    }
     fetchAllClubs()
     setClub({})
   },[])
@@ -48,7 +58,7 @@ const Tab1: React.FC = () => {
         </IonGrid>
         <h3>Upcoming Meetings</h3>
         <IonFab vertical='bottom' horizontal='center' slot='fixed'>
-          <IonFabButton routerLink='/club/new' routerDirection='forward'>
+          <IonFabButton routerLink='/my/club/new' routerDirection='forward'>
             <IonIcon icon={add}></IonIcon>
           </IonFabButton>
         </IonFab>
