@@ -45,24 +45,29 @@ const Tab1: React.FC = () => {
           <IonTitle>Clubs</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen class='ion-padding'>
-        <h3>My Clubs</h3>
-        <IonGrid>
-          <IonRow>
-            {cards?.map(c => (
-              <IonCol size="6" size-md="4" size-lg="2"  key={c.id}>
-                <ClubCard card={c}/>
-              </IonCol>
-            ))}
-          </IonRow>
-        </IonGrid>
-        <h3>Upcoming Meetings</h3>
-        <IonFab vertical='bottom' horizontal='center' slot='fixed'>
-          <IonFabButton routerLink='/my/club/new' routerDirection='forward'>
-            <IonIcon icon={add}></IonIcon>
-          </IonFabButton>
-        </IonFab>
-      </IonContent>
+      {user.id ? (
+        <IonContent fullscreen class='ion-padding'>
+          <h3>My Clubs</h3>
+          <IonGrid>
+            <IonRow>
+              {cards?.map(c => (
+                <IonCol size="6" size-md="4" size-lg="2"  key={c.id}>
+                  <ClubCard card={c}/>
+                </IonCol>
+              ))}
+            </IonRow>
+          </IonGrid>
+          <h3>Upcoming Meetings</h3>
+          <IonFab vertical='bottom' horizontal='center' slot='fixed'>
+            <IonFabButton routerLink='/my/club/new' routerDirection='forward'>
+              <IonIcon icon={add}></IonIcon>
+            </IonFabButton>
+          </IonFab>
+        </IonContent>
+      ) : (
+        <></>
+      )
+      }
     </IonPage>
   );
 };

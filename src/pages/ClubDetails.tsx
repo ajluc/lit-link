@@ -43,25 +43,30 @@ return (
           <IonTitle>{club.clubName}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen class='ion-padding'>
-        <h3>Next Meeting</h3>
-        {club ? (
-          <NextMeetingWidget />
-          ): (
-          <IonSpinner name="dots"></IonSpinner>
-        )}
-        <h3>Future Dates</h3>
-        <h3>Book List</h3>
-        {club ? (
-          <div>
-            <BookListWidget/>
-            <BookListModal/>
-          </div>
-        ) : <IonSpinner name="dots"></IonSpinner>}
-        <h3>Members</h3>
-        <MemberListWidget/>
-        <MemberListModal/>
-      </IonContent>
+      {user.id ? (
+        <IonContent fullscreen class='ion-padding'>
+          <h3>Next Meeting</h3>
+          {club ? (
+            <NextMeetingWidget />
+            ): (
+            <IonSpinner name="dots"></IonSpinner>
+          )}
+          <h3>Future Dates</h3>
+          <h3>Book List</h3>
+          {club ? (
+            <div>
+              <BookListWidget/>
+              <BookListModal/>
+            </div>
+          ) : <IonSpinner name="dots"></IonSpinner>}
+          <h3>Members</h3>
+          <MemberListWidget/>
+          <MemberListModal/>
+        </IonContent>
+      ) : (
+        <></>
+      )
+      }
     </IonPage>
   )
 }

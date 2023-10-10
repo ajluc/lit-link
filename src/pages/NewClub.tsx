@@ -45,18 +45,23 @@ const NewClub = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen class='ion-padding'>
-        <h3>New Club</h3>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <IonList >
-            <IonItem>
-              <IonInput
-                {...register('clubName')} placeholder='Club Name' clearInput={true}/>
-            </IonItem>
-          </IonList>
-          <IonButton type="submit" expand="block" className="ion-margin-top">Create</IonButton>
-        </form>
-      </IonContent>
+      {user.id ? (
+        <IonContent fullscreen class='ion-padding'>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <h3>New Club</h3>
+              <IonList >
+                <IonItem>
+                  <IonInput
+                    {...register('clubName')} placeholder='Club Name' clearInput={true}/>
+                </IonItem>
+              </IonList>
+              <IonButton type="submit" expand="block" className="ion-margin-top">Create</IonButton>
+            </form>
+        </IonContent>
+      ) : (
+        <></>
+      )
+      }
     </IonPage>
   )
 }

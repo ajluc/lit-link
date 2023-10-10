@@ -24,13 +24,18 @@ const Tab2: React.FC = () => {
           <IonTitle>Tab 2</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-      </IonContent>
+      {user.id ? (
+        <IonContent fullscreen>
+          <IonHeader collapse="condense">
+            <IonToolbar>
+              <IonTitle size="large">Tab 2</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+        </IonContent>
+      ) : (
+        <></>
+      )
+      }
     </IonPage>
   );
 };
