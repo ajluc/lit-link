@@ -40,16 +40,18 @@ const App: React.FC = () => {
   const [user, setUser] = useAtom(userAtom)
 
   const checkToken = async () => {
-    const user = await CheckSession()
-    setUser(user)
+    const userFromSession = await CheckSession()
+    setUser(userFromSession)
+    console.log("user from session: ", userFromSession)
   }
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      checkToken()
-    }
-  }, [])
+  
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token')
+  //   if (token) {
+  //     console.log('checking token')
+  //     checkToken()
+  //   }
+  // }, [])
 
   return (
   <IonApp>

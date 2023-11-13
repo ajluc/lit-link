@@ -1,9 +1,9 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, useIonViewWillEnter, useIonRouter } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, useIonViewDidEnter, useIonRouter } from '@ionic/react';
 import { add } from 'ionicons/icons';
 import { useState } from 'react';
 import './Tab1.css';
 import ClubCard from '../components/clubCard';
-import { GetClubs } from '../services/ClubServices'
+import { GetClubs, GetClubsByUser } from '../services/ClubServices'
 
 import { useAtom } from "jotai";
 import clubAtom from "../store/clubStore";
@@ -20,22 +20,28 @@ const Tab1: React.FC = () => {
   const [user] = useAtom(userAtom)
   const router = useIonRouter()
 
-
+// Swap this to call the User, will give the clubs that user is in
   const fetchAllClubs = async () => {
     const data = await GetClubs()
+
+    // const data = await GetClubsByUser(user.id)
     setCards(data)
+    console.log('tab 1: ', user)
+    console.log('tab 1: ', data)
   }
 
-  useIonViewWillEnter(() => {
+  useIonViewDidEnter(() => {
     if (!user.id) {
-      const goToPage = () => {
-        router.push('/signin','none', 'replace')
-      }
-      goToPage()
+      console.log('this is why')
+      // const goToPage = () => {
+      //   router.push('/signin','none', 'replace')
+      // }
+      // goToPage()
     }
+    if (user.id) console.log(user)
     fetchAllClubs()
     setClub({})
-  },[])
+  },[user])
 
 
   return (

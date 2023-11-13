@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonInput, IonItem, IonList, IonPage, useIonRouter } from '@ionic/react';
+import { IonButton, IonContent, IonInput, IonItem, IonList, IonPage, useIonRouter, useIonViewWillEnter } from '@ionic/react';
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { RegisterUser } from '../services/Auth';
 
@@ -29,6 +29,10 @@ const Register: React.FC = () => {
         goToPage()
     }
 
+    useIonViewWillEnter(() => {
+        console.log('did enter register')
+    }, [])
+
     return (
         <IonPage>
             <IonContent fullscreen class='ion-padding'>
@@ -50,6 +54,8 @@ const Register: React.FC = () => {
                     </IonList>
                     <IonButton type='submit' expand='block' className='ion-margin-top'>Register</IonButton>
                 </form>
+                <p>Existing user?</p>
+                <IonButton routerLink='/signin' routerDirection='back' expand='block' className='ion-margin-top'>Sign In</IonButton>
             </IonContent>
         </IonPage>
     );

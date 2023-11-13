@@ -20,12 +20,12 @@ const ClubDetails = () => {
   const router = useIonRouter()
   
   useIonViewWillEnter(() => {
-    if (!user.id) {
-      const goToPage = () => {
-        router.push('/signin','none', 'replace')
-      }
-      goToPage()
-    }
+    // if (!user.id) {
+    //   const goToPage = () => {
+    //     router.push('/signin','none', 'replace')
+    //   }
+    //   goToPage()
+    // }
     const fetchClubDetails = async () => {
       const data = await GetClubById(id)
       setClub(data)

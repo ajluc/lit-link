@@ -9,6 +9,15 @@ export const GetClubs = async () => {
   }
 }
 
+export const GetClubsByUser = async (userId) => {
+  try {
+    const res = await Client.get(`/clubs/user/${userId}`)
+    return res.data
+  } catch (error) {
+    return error
+  }
+}
+
 export const GetClubById = async (clubId) => {
   try {
     const res = await Client.get(`/clubs/${clubId}`)

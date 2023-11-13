@@ -20,6 +20,7 @@ const Tab3: React.FC = () => {
   const handleLogout = () => {
     setUser({})
     localStorage.clear()
+    console.log(user)
   }
 
   return (

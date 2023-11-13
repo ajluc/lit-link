@@ -1,4 +1,4 @@
-import { IonContent, IonPage, useIonRouter, IonButton, IonList, IonItem, IonInput, IonToast } from '@ionic/react';
+import { IonContent, IonPage, useIonRouter, IonButton, IonList, IonItem, IonInput, IonToast, useIonViewWillEnter } from '@ionic/react';
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { SignInUser } from '../services/Auth';
 import { useState } from 'react';
@@ -38,6 +38,10 @@ const SignIn: React.FC = () => {
     }
   }
 
+  useIonViewWillEnter(() => {
+    console.log('did enter sign in')
+}, [])
+
   return (
     <IonPage>
       <IonContent fullscreen class='ion-padding'>
@@ -53,6 +57,7 @@ const SignIn: React.FC = () => {
             </IonList>
             <IonButton type='submit' expand='block' className='ion-margin-top'>Sign In</IonButton>
           </form>
+            <p>New User?</p>
             <IonButton routerLink='/register' expand='block' className='ion-margin-top'>Register</IonButton>
           <IonToast isOpen={showToast} onDidDismiss={() => setShowToast(false)} message="Password is incorrect. Please try again." />
       </IonContent>
